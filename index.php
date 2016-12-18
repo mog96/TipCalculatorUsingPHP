@@ -60,7 +60,10 @@
     <div class="output">
       <p>Tip: $<?php
           $subtotal = (int)$_POST['subtotal'];
-          $percentage = round((int)$_POST['percentage'] / 100, 2);
+          $percentage = round(15 / 100, 2);
+          if (isset($_POST['percentage']) and in_array((int)$_POST['percentage'], $percentages)) {
+            $percentage = round((int)$_POST['percentage'] / 100, 2);
+          }
           $tip = round($subtotal * $percentage, 2);
           print money_format('%.2n', $tip);
         ?>
