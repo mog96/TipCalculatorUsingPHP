@@ -27,7 +27,7 @@
   <div class="container">
     <h1 class="center">Tip Calculator</h1>
     <form method="post" action="">
-      <p class="subtotal">Bill subtotal100: $<input class="subtotal" type="text" name="subtotal" size="10"
+      <p class="subtotal">Bill subtotal: $<input class="subtotal" type="text" name="subtotal" size="10"
           <?php
             if (isset($_POST['subtotal'])) {
               print 'value="' . $_POST['subtotal'] . '"';
