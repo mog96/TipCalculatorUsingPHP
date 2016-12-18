@@ -1,0 +1,44 @@
+body {
+    background-color: rgb(253, 254, 195);
+    margin: 0;
+}
+
+.container {
+    width: 220px;
+    background-color: white;
+    border: 1px solid black;
+    padding: 30px;
+    margin: 15px auto;
+}
+
+h1 {
+    font-size: 25px;
+    margin-bottom: 35px;
+}
+
+input {
+    font-size: medium;
+}
+
+.center {
+    text-align: center;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+}
+
+ul li {
+    display: inline;
+    padding: 0 5px 0 5px;
+}
+
+.output {
+    display: none;
+    margin: 40px 0 0 0;
+    padding: 0 15px;
+    border: 1px solid blue;
+    color: blue;
+}
