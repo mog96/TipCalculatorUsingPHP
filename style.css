@@ -32,7 +32,11 @@ ul {
 
 ul li {
     display: inline;
-    padding: 0 5px 0 5px;
+    padding: 0 5px 10px 5px;
+}
+
+p.custom-percentage {
+    text-align: center;
 }
 
 .output {
