@@ -4,7 +4,7 @@ A tip calculator PHP page.
 
 Submitted by: Mateo Garcia
 
-Time spent: 10 hours spent in total
+Time spent: 12 hours spent in total
 
 ## User Stories
 
@@ -17,12 +17,12 @@ The following **required** functionality is complete:
 * [x] Submitted form values are retained when errors or results are shown.
 
 The following **optional** features are implemented:
-* [ ] Add support for custom tip percentage
-* [ ] Add support for splitting the tip and total
+* [x] Add support for custom tip percentage
+* [x] Add support for splitting the tip and total
 
 The following **additional** features are implemented:
 
-* [ ] List anything else that you can get done to improve the functionality!
+* [x] Improved code organization with custom PHP functions.
 
 ## Video Walkthrough
 
@@ -30,11 +30,17 @@ Here's a walkthrough of implemented user stories:
 
 ![Walkthrough](Tip Calculator Using PHP Walkthrough.gif)
 
+With the extensions:
+
+![Walkthrough](Tip Calculator Using PHP With Extensions Walkthrough.gif)
+
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Dynamically updating the CSS to indicate an error took some digging to figure out.
+* It took some digging to figure out how to dynamically updating the CSS to indicate a user input error.
+* Determining when to call error-displaying code took some thinking, using PHP functions for reading POST variables like isset() and empty().
+* Re-displaying user-inputted form values when the form was rerendered was a little tricky.
 
 ## License
 
