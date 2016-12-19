@@ -56,6 +56,13 @@
           }
           showTotal($shouldShow);
         }
+
+        // Whether to show tip/total for each in split.
+        if (empty($_POST['split']) or (int)$_POST['split'] <= 1) {
+          print '.split-output {
+                  display: none;
+                }';
+        }
       ?>
     </style>
   </head>
@@ -110,7 +117,7 @@
         ?>
         /> person(s)</p>
       <div class="center">
-        <p><input type="submit" /></p>
+        <p class="submit"><input type="submit" /></p>
       </div>
     </form>
     <div class="output">
@@ -131,12 +138,20 @@
           print money_format('%.2n', $total);
         ?>
       </p>
+      <div class="split-output">
+        <p>Tip each: $<?php
+            $split = (int)$_POST['split'];
+            $tipEach = round($tip / $split, 2);
+            print money_format('%.2n', $tipEach);
+          ?>
+        </p>
+        <p>Total each: $<?php
+            $totalEach = round($total / $split, 2);
+            print money_format('%.2n', $totalEach);
+          ?>
+        </p>
+      </div>
     </div>
-    <?php
-      if (isset($_POST['custom-percentage'])) {
-        print 'CUSTOM PERC EMPTY:' . empty($_POST['custom-percentage']);
-      }
-    ?>
   </div>
   </body>
 </html>

@@ -37,6 +37,11 @@ ul li {
 
 p.custom-percentage {
     text-align: center;
+    margin: 16px 0 25px 0;
+}
+
+p.submit {
+    margin: 25px 0 16px 0;
 }
 
 .output {
