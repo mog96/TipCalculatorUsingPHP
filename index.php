@@ -10,23 +10,23 @@
       function hasValidPercentage() {
         return isset($_POST['percentage']) and in_array((int)$_POST['percentage'], PERCENTAGES);
       }
-      function hasCustomPercentage() {
+      function hasValidCustomPercentage() {
         return isset($_POST['percentage']) and htmlspecialchars($_POST['percentage']) == CUSTOM_PERCENTAGE
-            and isset($_POST['custom-percentage'])
-            and (int)$_POST['custom-percentage'] >= 0;
+            and !empty($_POST['custom-percentage'])
+            and (int)$_POST['custom-percentage'] > 0;
       }
     ?>
     <style type="text/css">
       <?php
-        $shouldShow = true;
-        function showTotal($show) {
-          if ($show) {
-            print '.output {
-                display: block;
-              }';
+        if (isset($_POST['subtotal']) and isset($_POST['percentage']) and isset($_POST['split'])) {
+          $shouldShow = true;
+          function showTotal($show) {
+            if ($show) {
+              print '.output {
+                  display: block;
+                }';
+            }
           }
-        }
-        if (isset($_POST['subtotal'])) {
           if ((int)$_POST['subtotal'] <= 0) {
             $shouldShow = false;
             print 'p.subtotal {
@@ -36,20 +36,25 @@
                 input.subtotal {
                   border: 1px solid #A52A2A;
                 }';
-          } else {
-            showTotal($shouldShow);
           }
-        }
-        if (isset($_POST['percentage'])) {
-          if (!hasValidPercentage() and !hasCustomPercentage()) {
+          if (!(hasValidPercentage() or hasValidCustomPercentage())) {
             $shouldShow = false;
             print 'p.tip-percentage {
                   color: #A52A2A;
                   font-weight: bold;
                 };';
-          } else {
-            showTotal($shouldShow);
           }
+          if ((int)$_POST['split'] <= 0) {
+            $shouldShow = false;
+            print 'p.split {
+                  color: #A52A2A;
+                  font-weight: bold;
+                }
+                input.split {
+                  border: 1px solid #A52A2A;
+                }';
+          }
+          showTotal($shouldShow);
         }
       ?>
     </style>
@@ -70,10 +75,8 @@
         <ul>
           <?php
             $checkedValue = $defaultPercentage;
-            if (hasValidPercentage()) {
+            if (!empty($_POST['percentage'])) {
               $checkedValue = (int)$_POST['percentage'];
-            } else if (hasCustomPercentage()) {
-              $checkedValue = CUSTOM_PERCENTAGE;
             }
             foreach (PERCENTAGES as $value) {
               print '<li><input type="radio" name="percentage" value="' . $value . '"';
@@ -87,15 +90,25 @@
         <p class="custom-percentage">
           <input type="radio" name="percentage" <?php
             print 'value="CUSTOM_PERCENTAGE"';
-            if (hasCustomPercentage()) {
+            if (!empty($_POST['percentage']) and htmlspecialchars($_POST['percentage']) == CUSTOM_PERCENTAGE) {
               print ' checked="checked"';
             }
-          ?>>Custom: <input type="text" name="custom-percentage" size="10"<?php
-            if (hasCustomPercentage()) {
-              print ' value="' . (int)$_POST['custom-percentage'] . '"';
+          ?>
+          />Custom: <input type="text" name="custom-percentage" size="10"<?php
+            if (!empty($_POST['custom-percentage'])) {
+              print ' value="' . $_POST['custom-percentage'] . '"';
             }
-          ?>>%</p>
+          ?>
+          />%</p>
       </div>
+      <p class="split">Split: <input class="split" type="text" name="split" size="10" <?php
+          if (isset($_POST['split'])) {
+            print ' value="' . $_POST['split'] . '"';
+          } else {
+            print ' value="1"';
+          }
+        ?>
+        /> person(s)</p>
       <div class="center">
         <p><input type="submit" /></p>
       </div>
@@ -119,6 +132,11 @@
         ?>
       </p>
     </div>
+    <?php
+      if (isset($_POST['custom-percentage'])) {
+        print 'CUSTOM PERC EMPTY:' . empty($_POST['custom-percentage']);
+      }
+    ?>
   </div>
   </body>
 </html>
